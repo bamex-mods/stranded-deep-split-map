@@ -1,0 +1,43 @@
+﻿{
+    "schemaVersion":  1,
+    "id":  "split-map",
+    "name":  "Stranded Deep Split Map",
+    "version":  "0.13.1",
+    "artifactBaseName":  "StrandedDeepSplitMap",
+    "type":  "mod",
+    "category":  "interface",
+    "description":  "Exploration map and navigation with local split-screen support.",
+    "packagePaths":  [
+                         "BepInEx/plugins/StrandedDeepSplitMap"
+                     ],
+    "ownedPaths":  [
+                       "BepInEx/plugins/StrandedDeepSplitMap"
+                   ],
+    "install":  {
+                    "restartRequired":  true
+                },
+    "dependencies":  [
+                         {
+                             "id":  "bepinex",
+                             "required":  true
+                         }
+                     ],
+    "optionalDependencies":  [
+
+                             ],
+    "conflicts":  [
+
+                  ],
+    "persistence":  {
+                        "usesBepInExConfig":  true,
+                        "usesGameSave":  false,
+                        "usesSidecarData":  true,
+                        "backupBeforeUpdate":  true
+                    },
+    "publishing":  {
+                       "repository":  "stranded-deep-split-map",
+                       "tag":  "v0.13.1",
+                       "releaseChannel":  "stable"
+                   },
+    "bepInExGuid":  "local.strandeddeep.splitmap"
+}

@@ -1,0 +1,22 @@
+# Generated release output
+/dist/out/
+
+# Build output
+/build/
+/out/
+/bin/
+/obj/
+
+# IDE files
+.vs/
+*.user
+*.suo
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Historical high-resolution source artwork.
+# Runtime artwork belongs under /assets.
+/parchment.png
