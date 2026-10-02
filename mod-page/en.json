@@ -1,0 +1,75 @@
+{
+    "schemaVersion":  1,
+    "locale":  "en",
+    "subtitle":  "Exploration map and navigation for local split-screen.",
+    "description":  "Adds an in-game map that reveals the world through actual exploration. Unknown islands remain hidden, discovered islands first appear as approximate shapes, and accurate shorelines are revealed gradually as they are explored. For two local players the map acts as a shared paper map: exploration, the home island, wrecks and manual markers are shared, while zoom, map position and navigation targets remain individual.",
+    "features":  [
+                     "Two independent map views for local split-screen players. Each player can open their own map and use independent zoom and map movement.",
+                     "Opening the map does not pause the game. It works as an overlay over the live game.",
+                     "Unknown islands are completely hidden. A discovered island first appears as an approximate shape and its accurate shoreline is revealed gradually through exploration.",
+                     "Exploration progress is shared between both players. Areas explored by one player become visible to the other.",
+                     "The map uses actual shoreline contours from the current world instead of generic circles or predefined island shapes.",
+                     "Zoom levels from 1x to 128x are supported. The last zoom level is stored separately for each player.",
+                     "Players can assign one shared home island and a separate navigation target for each player.",
+                     "When a navigation target is selected, a small directional arrow remains visible outside the map without showing distance or a route.",
+                     "Manual markers can be used for resources, food, water, plants, animals, equipment, terrain, shelters, crates, fires and other points of interest.",
+                     "Manual markers are shared by both players. They can be crossed out, restored or deleted.",
+                     "Shipwrecks and plane wrecks are not revealed automatically. The mod only offers to add a wreck after a player has actually seen it.",
+                     "Known wreck types use dedicated hand-drawn icons and duplicate markers for the same physical wreck are prevented.",
+                     "The map supports gamepad control and uses a fixed center crosshair instead of a free cursor.",
+                     "All map data is stored separately from the Stranded Deep game save and is associated with the current world.",
+                     "Optional integration with Stranded Deep Mod Settings provides additional configuration for map and navigation elements."
+                 ],
+    "screenshotCaptions":  {
+                               "overview":  "Map overview showing discovered islands, wrecks and the player position.",
+                               "island-detail":  "Detailed explored island view with an accurate shoreline, wrecks and player positions.",
+                               "add-marker":  "Manual marker menu with categories for resources, food, plants, animals, equipment and other points of interest.",
+                               "marker-actions":  "Context menu for an existing marker, allowing it to be crossed out, deleted or left unchanged.",
+                               "mod-settings":  "Split Map configuration inside the shared Stranded Deep Mod Settings menu."
+                           },
+    "faq":  [
+                {
+                    "question":  "Does the mod support two players on the same computer?",
+                    "answer":  "Yes. This is one of the core purposes of the mod. Each player can independently open their map, move it, change zoom and select a personal navigation target. World exploration and map markers are shared."
+                },
+                {
+                    "question":  "Does the map reveal the whole world immediately?",
+                    "answer":  "No. Unknown islands are not displayed at all. A discovered island first appears approximately, while its accurate shoreline is revealed gradually through actual exploration."
+                },
+                {
+                    "question":  "Does the map reveal story locations in advance?",
+                    "answer":  "No. MISSION and CARRIER zones are excluded from normal automatic island discovery so they are not revealed like ordinary islands."
+                },
+                {
+                    "question":  "How do I add a manual marker?",
+                    "answer":  "Open the map, zoom into the desired area and move the map until the target position is under the center crosshair. Then open the marker menu and select a category."
+                },
+                {
+                    "question":  "Can I mark a resource or location as completed?",
+                    "answer":  "Yes. A manual marker can be crossed out while remaining visible as part of the map history. It can later be restored or deleted completely."
+                },
+                {
+                    "question":  "How are wrecks added to the map?",
+                    "answer":  "Wrecks are not automatically detected just because they are nearby. A player must actually see the wreck and open the map, after which the mod can offer to add the observed wreck."
+                },
+                {
+                    "question":  "What is the difference between the home island and a navigation target?",
+                    "answer":  "The home island is shared by both players. Navigation targets are individual, so player one and player two can select different islands at the same time."
+                },
+                {
+                    "question":  "Does the mod modify the Stranded Deep save file?",
+                    "answer":  "No. Map data is stored separately under BepInEx and associated with the world. The normal Stranded Deep save file is not modified."
+                },
+                {
+                    "question":  "Are explored islands and markers preserved after restarting the game?",
+                    "answer":  "Yes. Exploration, the home island, navigation data, discovered wrecks and manual markers are stored in separate mod data files."
+                },
+                {
+                    "question":  "Is Stranded Deep Mod Settings required?",
+                    "answer":  "No. Split Map works without it. Mod Settings is an optional integration that exposes additional map configuration through the shared in-game settings menu."
+                }
+            ],
+    "changelog":  [
+
+                  ]
+}

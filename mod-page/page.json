@@ -1,0 +1,48 @@
+{
+    "schemaVersion":  1,
+    "id":  "split-map",
+    "defaultLocale":  "en",
+    "locales":  {
+                    "en":  "en.json",
+                    "ru":  "ru.json"
+                },
+    "media":  {
+                  "cover":  "media/cover.jpg",
+                  "screenshots":  [
+                                      {
+                                          "id":  "overview",
+                                          "file":  "media/screenshot-01.jpg"
+                                      },
+                                      {
+                                          "id":  "island-detail",
+                                          "file":  "media/screenshot-02.jpg"
+                                      },
+                                      {
+                                          "id":  "add-marker",
+                                          "file":  "media/screenshot-03.jpg"
+                                      },
+                                      {
+                                          "id":  "marker-actions",
+                                          "file":  "media/screenshot-04.jpg"
+                                      },
+                                      {
+                                          "id":  "mod-settings",
+                                          "file":  "media/screenshot-05.jpg"
+                                      }
+                                  ]
+              },
+    "tags":  [
+                 "map",
+                 "navigation",
+                 "split_screen",
+                 "markers",
+                 "persistence",
+                 "settings"
+             ],
+    "highlights":  [
+                       "split_screen",
+                       "markers",
+                       "navigation",
+                       "persistence"
+                   ]
+}
