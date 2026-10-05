@@ -2,7 +2,7 @@
     "schemaVersion":  1,
     "id":  "split-map",
     "name":  "Stranded Deep Split Map",
-    "version":  "0.13.1",
+    "version":  "0.13.2",
     "artifactBaseName":  "StrandedDeepSplitMap",
     "type":  "mod",
     "category":  "interface",
@@ -23,7 +23,10 @@
                          }
                      ],
     "optionalDependencies":  [
-
+                                 {
+                                     "id":  "mod-settings",
+                                     "minimumVersion":  "0.3.1"
+                                 }
                              ],
     "conflicts":  [
 
@@ -36,7 +39,7 @@
                     },
     "publishing":  {
                        "repository":  "stranded-deep-split-map",
-                       "tag":  "v0.13.1",
+                       "tag":  "v0.13.2",
                        "releaseChannel":  "stable"
                    },
     "bepInExGuid":  "local.strandeddeep.splitmap"

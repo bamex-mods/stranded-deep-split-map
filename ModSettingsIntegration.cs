@@ -115,124 +115,152 @@ namespace StrandedDeepSplitMap
 
             ModSettingsClient.RemoveMod(ModSettingsModId);
 
-            if (!ModSettingsClient.RegisterMod(ModSettingsModId, "КАРТА", 200))
+            if (!ModSettingsClient.RegisterModLocalized(ModSettingsModId, "КАРТА", "MAP", 200))
             {
                 Logger.LogWarning("Failed to register Split Map in Mod Settings.");
                 return;
             }
 
-            ModSettingsClient.AddToggle(
+            ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
                 "navigationHud",
                 "Навигационная стрелка",
+                "Navigation Arrow",
                 100,
                 "Вкл.",
+                "On",
                 "Выкл.",
+                "Off",
                 delegate { return IsNavigationHudEnabled(); },
                 delegate(bool value) { _navigationHudEnabledConfig.Value = value; });
 
-            ModSettingsClient.AddSlider(
+            ModSettingsClient.AddSliderLocalized(
                 ModSettingsModId,
                 "ownPlayerArrowScale",
                 "Размер своей стрелки",
+                "Player Arrow Size",
                 200,
                 0.70f,
                 1.60f,
                 0.10f,
                 100.0f,
                 "%",
+                "%",
                 0,
                 delegate { return GetOwnPlayerArrowScale(); },
                 delegate(float value) { _ownPlayerArrowScaleConfig.Value = Mathf.Clamp(value, 0.70f, 1.60f); });
 
-            ModSettingsClient.AddToggle(
+            ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
                 "manualMarkers",
                 "Ручные отметки",
+                "Manual Markers",
                 300,
                 "Вкл.",
+                "On",
                 "Выкл.",
+                "Off",
                 delegate { return AreManualMarkersEnabled(); },
                 delegate(bool value) { _manualMarkersEnabledConfig.Value = value; });
 
-            ModSettingsClient.AddSlider(
+            ModSettingsClient.AddSliderLocalized(
                 ModSettingsModId,
                 "markerScale",
                 "Размер отметок",
+                "Marker Size",
                 400,
                 0.70f,
                 1.60f,
                 0.10f,
                 100.0f,
                 "%",
+                "%",
                 0,
                 delegate { return GetMarkerScale(); },
                 delegate(float value) { _markerScaleConfig.Value = Mathf.Clamp(value, 0.70f, 1.60f); });
 
-            ModSettingsClient.AddChoice(
+            ModSettingsClient.AddChoiceLocalized(
                 ModSettingsModId,
                 "markerLabels",
                 "Подписи отметок",
+                "Marker Labels",
                 500,
                 new string[] { "Выкл.", "С 64x", "С 32x" },
+                new string[] { "Off", "From 64x", "From 32x" },
                 delegate { return GetMarkerLabelMode(); },
                 delegate(int value) { _markerLabelModeConfig.Value = Mathf.Clamp(value, 0, 2); });
 
-            ModSettingsClient.AddChoice(
+            ModSettingsClient.AddChoiceLocalized(
                 ModSettingsModId,
                 "crossedOutMarkers",
                 "Зачёркнутые отметки",
+                "Crossed-Out Markers",
                 600,
                 new string[] { "Показывать", "Приглушать", "Скрывать" },
+                new string[] { "Show", "Dim", "Hide" },
                 delegate { return GetCrossedOutMarkerMode(); },
                 delegate(int value) { _crossedOutMarkerModeConfig.Value = Mathf.Clamp(value, 0, 2); });
 
-            ModSettingsClient.AddToggle(
+            ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
                 "wreckMarkers",
                 "Затонувшие корабли",
+                "Wreck Markers",
                 700,
                 "Вкл.",
+                "On",
                 "Выкл.",
+                "Off",
                 delegate { return AreWreckMarkersEnabled(); },
                 delegate(bool value) { _wreckMarkersEnabledConfig.Value = value; });
 
-            ModSettingsClient.AddToggle(
+            ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
                 "partnerMarker",
                 "Показывать партнёра",
+                "Show Partner",
                 800,
                 "Вкл.",
+                "On",
                 "Выкл.",
+                "Off",
                 delegate { return IsPartnerMarkerEnabled(); },
                 delegate(bool value) { _partnerMarkerEnabledConfig.Value = value; });
 
-            ModSettingsClient.AddToggle(
+            ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
                 "centerOnOpen",
                 "Центрировать при открытии",
+                "Center on Open",
                 900,
                 "Вкл.",
+                "On",
                 "Выкл.",
+                "Off",
                 delegate { return ShouldCenterOnOpen(); },
                 delegate(bool value) { _centerOnOpenConfig.Value = value; });
 
-            ModSettingsClient.AddToggle(
+            ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
                 "fogOfWar",
                 "Туман войны",
+                "Fog of War",
                 1000,
                 "Вкл.",
+                "On",
                 "Выкл.",
+                "Off",
                 delegate { return IsFogOfWarEnabled(); },
                 delegate(bool value) { _fogOfWarEnabledConfig.Value = value; });
 
-            ModSettingsClient.AddButton(
+            ModSettingsClient.AddButtonLocalized(
                 ModSettingsModId,
                 "calibrateNorth",
                 "Север: P1 смотрит точно на N по компасу",
+                "North: P1 Faces N on the Compass",
                 1100,
                 "КАЛИБРОВАТЬ",
+                "CALIBRATE",
                 CalibrateNorthFromSettings);
 
             Logger.LogInfo("Split Map registered 11 controls in Mod Settings.");

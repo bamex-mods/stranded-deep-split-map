@@ -1,6 +1,12 @@
+param(
+    [string]$GameRoot = $env:STRANDED_DEEP_GAME_ROOT
+)
+
 $ErrorActionPreference = "Stop"
 
-$GameRoot = "F:\SteamLibrary\steamapps\common\Stranded Deep"
+if ([string]::IsNullOrWhiteSpace($GameRoot)) {
+    throw "GameRoot was not supplied. Pass -GameRoot or set STRANDED_DEEP_GAME_ROOT."
+}
 $Managed = Join-Path $GameRoot "Stranded_Deep_Data\Managed"
 $BepInExCore = Join-Path $GameRoot "BepInEx\core"
 $Plugins = Join-Path $GameRoot "BepInEx\plugins"
@@ -12,7 +18,7 @@ $Sources = @(
     (Join-Path $PSScriptRoot "ManualNotes.cs"),
     (Join-Path $PSScriptRoot "VisualDiscovery.cs"),
     (Join-Path $PSScriptRoot "ModSettingsIntegration.cs"),
-    (Join-Path $PSScriptRoot "ModSettingsClient.cs")
+    (Join-Path $PSScriptRoot "SDK\ModSettingsClient.cs")
 )
 
 $SourceAssets = Join-Path $PSScriptRoot "assets"

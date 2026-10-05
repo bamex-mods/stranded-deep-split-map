@@ -2,7 +2,14 @@
 
 An in-game exploration and navigation map for Stranded Deep, designed with local split-screen play in mind.
 
-Current version: **0.13.1**
+Current version: **0.13.2**
+
+## 0.13.2 Mod Settings localization
+
+- Added Russian/English localization for all 11 Mod Settings controls.
+- Synced the vendored reflection bridge with the authoritative bilingual SDK.
+- Map discovery, player ownership, navigation, controller behavior and persistence are unchanged.
+- Russian/English Mod Settings and local split-screen map behavior were field-tested before publication.
 
 ## Features
 
@@ -47,7 +54,7 @@ The settings host is optional. Split Map continues to function without it.
 ## Installation
 
 1. Install BepInEx for Stranded Deep.
-2. Download `StrandedDeepSplitMap-0.13.1.zip` from the GitHub Release.
+2. Download `StrandedDeepSplitMap-0.13.2.zip` from the GitHub Release.
 3. Extract it into the Stranded Deep game directory.
 4. Allow the included `BepInEx` folder to merge with the existing `BepInEx` folder.
 5. Fully restart Stranded Deep.

@@ -11,7 +11,7 @@ using Rewired;
 
 namespace StrandedDeepSplitMap
 {
-    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.1")]
+    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.2")]
     [BepInDependency("com.bamex.strandeddeep.modsettings", BepInDependency.DependencyFlags.SoftDependency)]
     public sealed partial class SplitMapPlugin : BaseUnityPlugin
     {
