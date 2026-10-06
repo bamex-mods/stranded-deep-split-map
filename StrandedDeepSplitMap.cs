@@ -11,7 +11,7 @@ using Rewired;
 
 namespace StrandedDeepSplitMap
 {
-    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.3")]
+    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.4")]
     [BepInDependency("com.bamex.strandeddeep.modsettings", BepInDependency.DependencyFlags.SoftDependency)]
     public sealed partial class SplitMapPlugin : BaseUnityPlugin
     {
@@ -119,7 +119,7 @@ namespace StrandedDeepSplitMap
             RegisterMapModSettings();
             InitializeWorldToolsReflection();
 
-            Logger.LogInfo("Stranded Deep Split Map v0.13.3 loaded.");
+            Logger.LogInfo("Stranded Deep Split Map v0.13.4 loaded.");
         }
 
         private void Update()
@@ -549,11 +549,11 @@ namespace StrandedDeepSplitMap
                     view.ZoomInButtonLongPressTriggered = true;
 
                     if (result == NavigationSelectionResult.Set)
-                        view.HomeFeedbackText = "NAVIGATION SET";
+                        view.HomeFeedbackText = MapL("НАВИГАЦИЯ УСТАНОВЛЕНА", "NAVIGATION SET");
                     else if (result == NavigationSelectionResult.Cleared)
-                        view.HomeFeedbackText = "NAVIGATION OFF";
+                        view.HomeFeedbackText = MapL("НАВИГАЦИЯ ОТКЛЮЧЕНА", "NAVIGATION OFF");
                     else
-                        view.HomeFeedbackText = "AIM CROSSHAIR AT ISLAND";
+                        view.HomeFeedbackText = MapL("НАВЕДИ ЦЕНТР НА ОСТРОВ", "AIM CROSSHAIR AT ISLAND");
 
                     view.HomeFeedbackUntil =
                         Time.unscaledTime + 1.6f;
@@ -936,7 +936,7 @@ namespace StrandedDeepSplitMap
 
                     if (!opened)
                     {
-                        view.HomeFeedbackText = "CENTER A MARKER OR WRECK";
+                        view.HomeFeedbackText = MapL("НАВЕДИ ЦЕНТР НА ОТМЕТКУ ИЛИ ОБЛОМКИ", "CENTER A MARKER OR WRECK");
                         view.HomeFeedbackUntil = now + 1.4f;
                     }
 
@@ -971,8 +971,8 @@ namespace StrandedDeepSplitMap
 
                     view.HomeFeedbackText =
                         success
-                        ? "HOME ISLAND SET"
-                        : "CENTER AN ISLAND";
+                        ? MapL("ДОМАШНИЙ ОСТРОВ УСТАНОВЛЕН", "HOME ISLAND SET")
+                        : MapL("НАВЕДИ ЦЕНТР НА ОСТРОВ", "CENTER AN ISLAND");
 
                     view.HomeFeedbackUntil = now + 1.6f;
 
@@ -2154,7 +2154,7 @@ namespace StrandedDeepSplitMap
                             localViewport.center.y + 60.0f,
                             210.0f,
                             26.0f),
-                        "HOLD: NAV TARGET",
+                        MapL("УДЕРЖИВАЙ: ЦЕЛЬ НАВИГАЦИИ", "HOLD: NAV TARGET"),
                         _smallStyle);
                 }
             }
@@ -2204,7 +2204,7 @@ namespace StrandedDeepSplitMap
                             localViewport.center.y + 102.0f,
                             200.0f,
                             26.0f),
-                        "HOLD: ADD MARKER",
+                        MapL("УДЕРЖИВАЙ: ДОБАВИТЬ ОТМЕТКУ", "HOLD: ADD MARKER"),
                         _smallStyle);
                 }
             }
@@ -2261,7 +2261,7 @@ namespace StrandedDeepSplitMap
                         localViewport.center.y + 18.0f,
                         200.0f,
                         26.0f),
-                    "HOLD: EDIT MARKER",
+                    MapL("УДЕРЖИВАЙ: ИЗМЕНИТЬ ОТМЕТКУ", "HOLD: EDIT MARKER"),
                     _smallStyle);
             }
 
@@ -4199,7 +4199,7 @@ namespace StrandedDeepSplitMap
 
                 GUI.Label(
                     new Rect(20.0f, 20.0f, half - 40.0f, 60.0f),
-                    "Map data is not available yet.\nLoad a world with local players.",
+                    MapL("Данные карты пока недоступны.\nЗагрузите мир с локальными игроками.", "Map data is not available yet.\nLoad a world with local players."),
                     _titleStyle);
             }
 
@@ -4211,7 +4211,7 @@ namespace StrandedDeepSplitMap
 
                 GUI.Label(
                     new Rect(half + 20.0f, 20.0f, half - 40.0f, 60.0f),
-                    "Map data is not available yet.\nLoad a world with local players.",
+                    MapL("Данные карты пока недоступны.\nЗагрузите мир с локальными игроками.", "Map data is not available yet.\nLoad a world with local players."),
                     _titleStyle);
             }
         }

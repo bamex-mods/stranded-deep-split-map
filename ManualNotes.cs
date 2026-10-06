@@ -370,11 +370,11 @@ namespace StrandedDeepSplitMap
                 {
                     if (OpenManualMarkerMenu(playerIndex))
                     {
-                        view.HomeFeedbackText = "ВЫБЕРИ ОТМЕТКУ";
+                        view.HomeFeedbackText = MapL("ВЫБЕРИ ОТМЕТКУ", "CHOOSE A MARKER");
                     }
                     else
                     {
-                        view.HomeFeedbackText = "НЕ УДАЛОСЬ ОТКРЫТЬ";
+                        view.HomeFeedbackText = MapL("НЕ УДАЛОСЬ ОТКРЫТЬ", "COULD NOT OPEN");
                     }
 
                     view.HomeFeedbackUntil = Time.unscaledTime + 1.2f;
@@ -712,7 +712,7 @@ namespace StrandedDeepSplitMap
                 SaveManualNotes();
 
                 _views[viewIndex].HomeFeedbackText =
-                    note.CrossedOut ? "ОТМЕТКА ЗАЧЁРКНУТА" : "ОТМЕТКА ВОССТАНОВЛЕНА";
+                    note.CrossedOut ? MapL("ОТМЕТКА ЗАЧЁРКНУТА", "MARKER CROSSED OUT") : MapL("ОТМЕТКА ВОССТАНОВЛЕНА", "MARKER RESTORED");
                 _views[viewIndex].HomeFeedbackUntil = Time.unscaledTime + 1.5f;
             }
             else if (context.SelectedIndex == 1)
@@ -720,7 +720,7 @@ namespace StrandedDeepSplitMap
                 _manualNotesById.Remove(note.Id);
                 SaveManualNotes();
 
-                _views[viewIndex].HomeFeedbackText = "ОТМЕТКА УДАЛЕНА";
+                _views[viewIndex].HomeFeedbackText = MapL("ОТМЕТКА УДАЛЕНА", "MARKER REMOVED");
                 _views[viewIndex].HomeFeedbackUntil = Time.unscaledTime + 1.5f;
             }
 
@@ -803,7 +803,7 @@ namespace StrandedDeepSplitMap
 
             if (viewIndex >= 0 && viewIndex < _views.Length)
             {
-                _views[viewIndex].HomeFeedbackText = "ОТМЕТКА ДОБАВЛЕНА";
+                _views[viewIndex].HomeFeedbackText = MapL("ОТМЕТКА ДОБАВЛЕНА", "MARKER ADDED");
                 _views[viewIndex].HomeFeedbackUntil = Time.unscaledTime + 1.5f;
             }
 
@@ -909,12 +909,13 @@ namespace StrandedDeepSplitMap
                     DrawManualMarkerCross(point, size * 0.9f, opacity);
                 }
 
-                if (ShouldDrawManualMarkerLabels(view.Zoom) && !String.IsNullOrEmpty(note.Label))
+                string localizedLabel = MapLocManualMarkerLabel(note.Category, note.Subtype, note.Label);
+                if (ShouldDrawManualMarkerLabels(view.Zoom) && !String.IsNullOrEmpty(localizedLabel))
                 {
                     DrawManualMarkerLabel(
                         point,
                         size,
-                        note.Label,
+                        localizedLabel,
                         opacity);
                 }
             }
@@ -1033,12 +1034,12 @@ namespace StrandedDeepSplitMap
 
             GUI.Label(
                 new Rect(panel.x + 18.0f, panel.y + 12.0f, panel.width - 36.0f, 36.0f),
-                current.Title,
+                MapLocManualMenuTitle(current.Title),
                 _manualMenuTitleStyle);
 
             string breadcrumb = menu.Stack.Count > 1
-                ? _manualRootMenu.Title + "  >  " + current.Title
-                : "L1 / LB hold — добавить отметку";
+                ? MapLocManualMenuTitle(_manualRootMenu.Title) + "  >  " + MapLocManualMenuTitle(current.Title)
+                : MapL("L1 / LB hold — добавить отметку", "L1 / LB hold — add marker");
 
             GUI.Label(
                 new Rect(panel.x + 22.0f, panel.y + 52.0f, panel.width - 44.0f, 26.0f),
@@ -1088,7 +1089,7 @@ namespace StrandedDeepSplitMap
 
                 GUI.Label(
                     row,
-                    prefix + item.Title,
+                    prefix + MapLocManualMenuTitle(item.Title),
                     selected
                         ? _manualMenuSelectedStyle
                         : _manualMenuItemStyle);
@@ -1102,7 +1103,7 @@ namespace StrandedDeepSplitMap
                     panel.yMax - footerHeight + 10.0f,
                     panel.width - 36.0f,
                     34.0f),
-                "D-pad ↑/↓ — выбор     A / → — выбрать     View / ← — назад",
+                MapL("D-pad ↑/↓ — выбор     A / → — выбрать     View / ← — назад", "D-pad ↑/↓ — move     A / → — select     View / ← — back"),
                 _manualMenuHelpStyle);
 
             GUI.color = Color.white;
@@ -1143,14 +1144,16 @@ namespace StrandedDeepSplitMap
             GUI.DrawTexture(new Rect(panel.x + 3.0f, panel.y + 3.0f, panel.width - 6.0f, panel.height - 6.0f), _pixelTexture);
             GUI.color = Color.white;
 
-            string title = String.IsNullOrEmpty(note.Label) ? "Отметка" : note.Label;
+            string title = MapLocManualMarkerLabel(note.Category, note.Subtype, note.Label);
+            if (String.IsNullOrEmpty(title))
+                title = MapL("Отметка", "Marker");
             GUI.Label(new Rect(panel.x + 18.0f, panel.y + 12.0f, panel.width - 36.0f, 34.0f), title, _manualMenuTitleStyle);
 
             string[] options = new string[]
             {
-                note.CrossedOut ? "Восстановить" : "Зачеркнуть",
-                "Удалить",
-                "Отмена"
+                note.CrossedOut ? MapL("Восстановить", "Restore") : MapL("Зачеркнуть", "Cross Out"),
+                MapL("Удалить", "Delete"),
+                MapL("Отмена", "Cancel")
             };
 
             float rowY = panel.y + 62.0f;

@@ -14,6 +14,7 @@ $Plugins = Join-Path $GameRoot "BepInEx\plugins"
 $Compiler = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 $Sources = @(
     (Join-Path $PSScriptRoot "StrandedDeepSplitMap.cs"),
+    (Join-Path $PSScriptRoot "MapLocalization.cs"),
     (Join-Path $PSScriptRoot "WreckNotes.cs"),
     (Join-Path $PSScriptRoot "ManualNotes.cs"),
     (Join-Path $PSScriptRoot "VisualDiscovery.cs"),
@@ -129,7 +130,7 @@ function Require-InstalledAsset {
     }
 }
 
-# v0.13.3 is code-only. Do NOT overwrite installed map art.
+# v0.13.4 is code-only. Do NOT overwrite installed map art.
 # Preserve the current high-resolution parchment and all existing icon PNGs.
 Require-InstalledAsset (Join-Path $PluginAssets "parchment.png")
 Require-InstalledAsset (Join-Path $PluginAssets "compass_rose.png")
@@ -154,7 +155,7 @@ Write-Host ""
 Write-Host "Build OK:"
 Write-Host $Output
 Write-Host ""
-Write-Host "v0.13.3 keyboard-parity field test:"
+Write-Host "v0.13.4 keyboard-parity field test:"
 Write-Host "  1. M opens/closes P1 map; N remains P2 map for local split-screen."
 Write-Host "  2. Arrow keys pan; =/Keypad+ zoom in; -/Keypad- zoom out."
 Write-Host "  3. Home centers the owning player; Backspace resets to 1x + center."
@@ -167,3 +168,8 @@ Write-Host "  9. F8 remains free for StrandedDeepDiagnostics."
 Write-Host " 10. Mouse buttons/wheel are not captured by Split Map."
 Write-Host " 11. Existing controller controls and split-screen behavior remain unchanged."
 Write-Host " 12. Fog, markers, wrecks, navigation, Home and persistence remain unchanged."
+Write-Host " 13. RU game language: all Split Map menus, prompts, feedback and marker labels are Russian."
+Write-Host " 14. EN game language: the same UI becomes English."
+Write-Host " 15. Existing manual markers switch label language without rewriting sidecar data."
+Write-Host " 16. Switch RU -> EN -> RU and reopen the map after each change."
+Write-Host " 17. Controller and keyboard behavior remain identical to v0.13.3."

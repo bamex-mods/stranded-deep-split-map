@@ -259,7 +259,7 @@ namespace StrandedDeepSplitMap
 
                 if (viewIndex >= 0 && viewIndex < _views.Length)
                 {
-                    _views[viewIndex].HomeFeedbackText = "WRECK ADDED";
+                    _views[viewIndex].HomeFeedbackText = MapL("ОБЛОМКИ ДОБАВЛЕНЫ", "WRECK ADDED");
                     _views[viewIndex].HomeFeedbackUntil =
                         Time.unscaledTime + 1.6f;
                 }
@@ -781,7 +781,7 @@ namespace StrandedDeepSplitMap
                 note.Explored = !note.Explored;
                 SaveWreckNotes();
                 _views[viewIndex].HomeFeedbackText =
-                    note.Explored ? "WRECK EXPLORED" : "WRECK RESTORED";
+                    note.Explored ? MapL("ОТМЕЧЕНО КАК ИССЛЕДОВАННОЕ", "WRECK EXPLORED") : MapL("ОТМЕТКА ИССЛЕДОВАНИЯ СНЯТА", "WRECK RESTORED");
                 _views[viewIndex].HomeFeedbackUntil = Time.unscaledTime + 1.5f;
             }
             else if (context.SelectedIndex == 1)
@@ -789,14 +789,14 @@ namespace StrandedDeepSplitMap
                 note.Important = !note.Important;
                 SaveWreckNotes();
                 _views[viewIndex].HomeFeedbackText =
-                    note.Important ? "WRECK IMPORTANT" : "IMPORTANT OFF";
+                    note.Important ? MapL("ОТМЕЧЕНО КАК ВАЖНОЕ", "WRECK IMPORTANT") : MapL("ОТМЕТКА «ВАЖНО» СНЯТА", "IMPORTANT OFF");
                 _views[viewIndex].HomeFeedbackUntil = Time.unscaledTime + 1.5f;
             }
             else if (context.SelectedIndex == 2)
             {
                 _wreckNotesByKey.Remove(note.WreckKey);
                 SaveWreckNotes();
-                _views[viewIndex].HomeFeedbackText = "WRECK REMOVED";
+                _views[viewIndex].HomeFeedbackText = MapL("ОБЛОМКИ УДАЛЕНЫ", "WRECK REMOVED");
                 _views[viewIndex].HomeFeedbackUntil = Time.unscaledTime + 1.5f;
             }
 
@@ -840,7 +840,7 @@ namespace StrandedDeepSplitMap
                 _pixelTexture);
             GUI.color = Color.white;
 
-            string title = "Затонувший корабль";
+            string title = MapL("Затонувший корабль", "Shipwreck");
             if (!String.IsNullOrEmpty(note.InternalPrefabId))
                 title += "  [" + note.InternalPrefabId + "]";
 
@@ -851,10 +851,10 @@ namespace StrandedDeepSplitMap
 
             string[] options = new string[]
             {
-                note.Explored ? "Снять отметку «Исследовано»" : "Отметить исследованным",
-                note.Important ? "Снять «Важно»" : "Отметить важным",
-                "Удалить с карты",
-                "Отмена"
+                note.Explored ? MapL("Снять отметку «Исследовано»", "Clear Explored") : MapL("Отметить исследованным", "Mark as Explored"),
+                note.Important ? MapL("Снять «Важно»", "Clear Important") : MapL("Отметить важным", "Mark as Important"),
+                MapL("Удалить с карты", "Remove from Map"),
+                MapL("Отмена", "Cancel")
             };
 
             float rowY = panel.y + 62.0f;
@@ -1213,7 +1213,7 @@ namespace StrandedDeepSplitMap
                     box.y + 22.0f,
                     box.width - 48.0f,
                     56.0f),
-                "Нанести затонувший корабль на карту?",
+                MapL("Нанести затонувший корабль на карту?", "Add this wreck to the map?"),
                 _wreckPromptTitleStyle);
 
             bool yes = _pendingWreckChoiceYes[viewIndex];
@@ -1227,12 +1227,12 @@ namespace StrandedDeepSplitMap
 
             DrawWreckPromptButton(
                 new Rect(startX, buttonY, buttonWidth, buttonHeight),
-                "ДА",
+                MapL("ДА", "YES"),
                 yes);
 
             DrawWreckPromptButton(
                 new Rect(startX + buttonWidth + gap, buttonY, buttonWidth, buttonHeight),
-                "НЕТ",
+                MapL("НЕТ", "NO"),
                 !yes);
 
             GUI.Label(
@@ -1241,7 +1241,7 @@ namespace StrandedDeepSplitMap
                     box.y + 174.0f,
                     box.width - 56.0f,
                     48.0f),
-                "D-pad ←/→ — выбор     A / Cross — подтвердить",
+                MapL("D-pad ←/→ — выбор     A / Cross — подтвердить", "D-pad ←/→ — select     A / Cross — confirm"),
                 _wreckPromptHelpStyle);
 
             GUI.color = Color.white;
