@@ -11,7 +11,7 @@ using Rewired;
 
 namespace StrandedDeepSplitMap
 {
-    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.2")]
+    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.3")]
     [BepInDependency("com.bamex.strandeddeep.modsettings", BepInDependency.DependencyFlags.SoftDependency)]
     public sealed partial class SplitMapPlugin : BaseUnityPlugin
     {
@@ -66,6 +66,16 @@ namespace StrandedDeepSplitMap
         private ConfigEntry<float> _player1LastZoomConfig;
         private ConfigEntry<float> _player2LastZoomConfig;
 
+        private ConfigEntry<KeyCode> _keyboardTogglePlayer1MapKey;
+        private ConfigEntry<KeyCode> _keyboardTogglePlayer2MapKey;
+        private ConfigEntry<KeyCode> _keyboardNorthCalibrationKey;
+        private ConfigEntry<KeyCode> _keyboardAddMarkerKey;
+        private ConfigEntry<KeyCode> _keyboardNavigationTargetKey;
+        private ConfigEntry<KeyCode> _keyboardHomeIslandKey;
+        private ConfigEntry<KeyCode> _keyboardMarkerContextKey;
+        private ConfigEntry<KeyCode> _keyboardCenterKey;
+        private ConfigEntry<KeyCode> _keyboardResetViewKey;
+
 
         private GUIStyle _titleStyle;
         private GUIStyle _smallStyle;
@@ -104,11 +114,12 @@ namespace StrandedDeepSplitMap
             InitializeWreckNotes();
             InitializeManualNotes();
             InitializePersistentViewSettings();
+            InitializeKeyboardSettings();
             InitializeMapUserSettings();
             RegisterMapModSettings();
             InitializeWorldToolsReflection();
 
-            Logger.LogInfo("Stranded Deep Split Map v0.13b loaded.");
+            Logger.LogInfo("Stranded Deep Split Map v0.13.3 loaded.");
         }
 
         private void Update()
@@ -140,13 +151,13 @@ namespace StrandedDeepSplitMap
 
             HandleGamepadMapControls();
 
-            if (Input.GetKeyDown(KeyCode.K))
+            if (IsConfiguredKeyDown(_keyboardNorthCalibrationKey))
                 CalibrateNorthFromLeftPlayer();
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (IsConfiguredKeyDown(_keyboardTogglePlayer1MapKey))
                 ToggleView(0);
 
-            if (Input.GetKeyDown(KeyCode.N))
+            if (IsConfiguredKeyDown(_keyboardTogglePlayer2MapKey))
                 ToggleView(1);
 
             HandleFocusedMapControls();
@@ -1231,10 +1242,31 @@ namespace StrandedDeepSplitMap
             if (HandleWreckMarkerContextKeyboardInput(_focusedView))
                 return;
 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (IsConfiguredKeyDown(_keyboardAddMarkerKey))
             {
                 OpenManualMarkerMenu(_focusedView);
                 return;
+            }
+
+            if (IsConfiguredKeyDown(_keyboardNavigationTargetKey))
+            {
+                ToggleNavigationTargetAtMapCenter(_focusedView);
+                return;
+            }
+
+            if (IsConfiguredKeyDown(_keyboardHomeIslandKey))
+            {
+                TrySetHomeIslandAtMapCenter(_focusedView);
+                return;
+            }
+
+            if (IsConfiguredKeyDown(_keyboardMarkerContextKey))
+            {
+                if (TryOpenManualMarkerContextAtMapCenter(_focusedView))
+                    return;
+
+                if (TryOpenWreckMarkerContextAtMapCenter(_focusedView))
+                    return;
             }
 
             bool changed = false;
@@ -1283,13 +1315,13 @@ namespace StrandedDeepSplitMap
                 changed = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.C))
+            if (IsConfiguredKeyDown(_keyboardCenterKey))
             {
                 CenterViewOnOwningPlayer(_focusedView);
                 changed = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Backspace))
+            if (IsConfiguredKeyDown(_keyboardResetViewKey))
             {
                 view.Zoom = 1.0f;
                 SaveZoomForView(_focusedView);
@@ -1317,6 +1349,68 @@ namespace StrandedDeepSplitMap
 
             _views[0].Zoom = NormalizeZoom(_player1LastZoomConfig.Value);
             _views[1].Zoom = NormalizeZoom(_player2LastZoomConfig.Value);
+        }
+
+        private void InitializeKeyboardSettings()
+        {
+            _keyboardTogglePlayer1MapKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "TogglePlayer1Map",
+                KeyCode.M,
+                "Open/close Player 1 map. Default avoids vanilla Stranded Deep controls.");
+
+            _keyboardTogglePlayer2MapKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "TogglePlayer2Map",
+                KeyCode.N,
+                "Open/close Player 2 map in local split-screen.");
+
+            _keyboardNorthCalibrationKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "NorthCalibration",
+                KeyCode.K,
+                "Fallback keyboard shortcut for north calibration. Normal UI path is Settings > MODS > Map > Calibrate.");
+
+            _keyboardAddMarkerKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "AddMarker",
+                KeyCode.L,
+                "Open the manual marker menu while the map is open.");
+
+            _keyboardNavigationTargetKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "NavigationTarget",
+                KeyCode.T,
+                "Set/clear Navigation Target at the map center while the map is open.");
+
+            _keyboardHomeIslandKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "HomeIsland",
+                KeyCode.H,
+                "Set Home Island at the map center while the map is open.");
+
+            _keyboardMarkerContextKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "MarkerContext",
+                KeyCode.Return,
+                "Open manual/wreck marker context at the map center while the map is open.");
+
+            _keyboardCenterKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "CenterOnPlayer",
+                KeyCode.Home,
+                "Center the open map on its owning player. Replaces the old C shortcut, which conflicted with vanilla Crafting.");
+
+            _keyboardResetViewKey = Config.Bind<KeyCode>(
+                "Keyboard",
+                "ResetView",
+                KeyCode.Backspace,
+                "Reset zoom to 1x and center the open map on its owning player.");
+        }
+
+        private static bool IsConfiguredKeyDown(ConfigEntry<KeyCode> entry)
+        {
+            return entry != null && Input.GetKeyDown(entry.Value);
         }
 
         private float NormalizeZoom(float value)

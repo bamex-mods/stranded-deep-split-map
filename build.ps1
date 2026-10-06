@@ -129,7 +129,7 @@ function Require-InstalledAsset {
     }
 }
 
-# v0.13b is code-only. Do NOT overwrite installed map art.
+# v0.13.3 is code-only. Do NOT overwrite installed map art.
 # Preserve the current high-resolution parchment and all existing icon PNGs.
 Require-InstalledAsset (Join-Path $PluginAssets "parchment.png")
 Require-InstalledAsset (Join-Path $PluginAssets "compass_rose.png")
@@ -154,19 +154,16 @@ Write-Host ""
 Write-Host "Build OK:"
 Write-Host $Output
 Write-Host ""
-Write-Host "v0.13b clean-production field test:"
-Write-Host "  1. Settings > MODS contains exactly one КАРТА section."
-Write-Host "  2. Navigation arrow toggle hides only the closed-map navigation HUD."
-Write-Host "  3. Own-arrow size changes only the owner arrow on each player's own map."
-Write-Host "  4. Manual/wreck visibility toggles never delete stored markers."
-Write-Host "  5. Marker scale preserves existing zoom-proportional growth."
-Write-Host "  6. Labels work as Off / 64x / 32x."
-Write-Host "  7. Crossed-out notes work as Show / Dim / Hide."
-Write-Host "  8. Partner toggle affects only the other player's map arrow."
-Write-Host "  9. Center-on-open OFF preserves view; A/Cross tap still centers."
-Write-Host " 10. Fog OFF visually reveals ordinary islands only; Discovery/Exploration remain untouched."
-Write-Host " 11. Turn fog back ON and the real partially explored map must return."
-Write-Host " 12. MISSION/CARRIER stay hidden even with fog OFF."
-Write-Host " 13. North calibration: P1 faces exact N with compass, then Settings > MODS > КАРТА > КАЛИБРОВАТЬ."
-
-Write-Host " 14. F8 is no longer handled by Split Map; it is free for StrandedDeepDiagnostics."
+Write-Host "v0.13.3 keyboard-parity field test:"
+Write-Host "  1. M opens/closes P1 map; N remains P2 map for local split-screen."
+Write-Host "  2. Arrow keys pan; =/Keypad+ zoom in; -/Keypad- zoom out."
+Write-Host "  3. Home centers the owning player; Backspace resets to 1x + center."
+Write-Host "  4. L opens Add Marker."
+Write-Host "  5. T sets/clears Navigation Target at map center."
+Write-Host "  6. H sets Home Island at map center."
+Write-Host "  7. Enter opens manual/wreck context at map center; menu Enter still confirms."
+Write-Host "  8. C is NOT handled by Split Map; vanilla Crafting remains free."
+Write-Host "  9. F8 remains free for StrandedDeepDiagnostics."
+Write-Host " 10. Mouse buttons/wheel are not captured by Split Map."
+Write-Host " 11. Existing controller controls and split-screen behavior remain unchanged."
+Write-Host " 12. Fog, markers, wrecks, navigation, Home and persistence remain unchanged."
