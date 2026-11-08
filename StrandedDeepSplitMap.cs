@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -11,7 +11,7 @@ using Rewired;
 
 namespace StrandedDeepSplitMap
 {
-    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.4")]
+    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.5")]
     [BepInDependency("com.bamex.strandeddeep.modsettings", BepInDependency.DependencyFlags.SoftDependency)]
     public sealed partial class SplitMapPlugin : BaseUnityPlugin
     {
@@ -119,7 +119,7 @@ namespace StrandedDeepSplitMap
             RegisterMapModSettings();
             InitializeWorldToolsReflection();
 
-            Logger.LogInfo("Stranded Deep Split Map v0.13.4 loaded.");
+            Logger.LogInfo("Stranded Deep Split Map v0.13.5 loaded.");
         }
 
         private void Update()

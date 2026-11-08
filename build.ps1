@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$GameRoot = $env:STRANDED_DEEP_GAME_ROOT
 )
 
@@ -130,7 +130,7 @@ function Require-InstalledAsset {
     }
 }
 
-# v0.13.4 is code-only. Do NOT overwrite installed map art.
+# v0.13.5 is code-only. Do NOT overwrite installed map art.
 # Preserve the current high-resolution parchment and all existing icon PNGs.
 Require-InstalledAsset (Join-Path $PluginAssets "parchment.png")
 Require-InstalledAsset (Join-Path $PluginAssets "compass_rose.png")
@@ -155,7 +155,7 @@ Write-Host ""
 Write-Host "Build OK:"
 Write-Host $Output
 Write-Host ""
-Write-Host "v0.13.4 keyboard-parity field test:"
+Write-Host "v0.13.5 field test:"
 Write-Host "  1. M opens/closes P1 map; N remains P2 map for local split-screen."
 Write-Host "  2. Arrow keys pan; =/Keypad+ zoom in; -/Keypad- zoom out."
 Write-Host "  3. Home centers the owning player; Backspace resets to 1x + center."

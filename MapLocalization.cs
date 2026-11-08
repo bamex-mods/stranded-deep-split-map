@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Reflection;
 using UnityEngine;
 
@@ -41,23 +41,11 @@ namespace StrandedDeepSplitMap
             _mapLocNextLanguageScanTime = now + 0.75f;
 
             bool russian;
-            if (MapLocTryDetectNativeOptionsLanguage(out russian))
+            if (MapLocTryDetectGameLanguage(out russian) ||
+                MapLocTryDetectNativeOptionsLanguage(out russian))
             {
-                bool changed =
-                    !_mapLocLanguageInitialized ||
-                    russian != _mapLocUseRussian;
-
                 _mapLocLanguageInitialized = true;
                 _mapLocUseRussian = russian;
-
-                if (changed)
-                {
-                    Logger.LogInfo(
-                        "Map UI language detected from native Options UI: " +
-                        (_mapLocUseRussian ? "RU" : "EN") +
-                        ".");
-                }
-
                 return;
             }
 
@@ -68,14 +56,79 @@ namespace StrandedDeepSplitMap
                     SystemLanguage.Russian;
 
                 _mapLocLanguageInitialized = true;
-
-                Logger.LogInfo(
-                    "Map UI language fallback: " +
-                    (_mapLocUseRussian ? "RU" : "EN") +
-                    " (waiting for native Options UI).");
             }
         }
 
+        private bool MapLocTryDetectGameLanguage(
+            out bool russian)
+        {
+            russian = false;
+
+            try
+            {
+                Type localizationType =
+                    MapLocFindLoadedType(
+                        "Beam.Language.Localization");
+
+                if (localizationType == null)
+                    return false;
+
+                MethodInfo getHandler =
+                    localizationType.GetMethod(
+                        "GetLanguageHandler",
+                        BindingFlags.Static |
+                        BindingFlags.Public |
+                        BindingFlags.NonPublic);
+
+                if (getHandler == null)
+                    return false;
+
+                object handler =
+                    getHandler.Invoke(
+                        null,
+                        null);
+
+                if (handler == null)
+                    return false;
+
+                MethodInfo getCurrentLanguage =
+                    handler.GetType().GetMethod(
+                        "GetCurrentLanguage",
+                        BindingFlags.Instance |
+                        BindingFlags.Public |
+                        BindingFlags.NonPublic);
+
+                if (getCurrentLanguage == null)
+                    return false;
+
+                object raw =
+                    getCurrentLanguage.Invoke(
+                        handler,
+                        null);
+
+                if (!(raw is SystemLanguage))
+                    return false;
+
+                SystemLanguage language =
+                    (SystemLanguage)raw;
+
+                if (language == SystemLanguage.Unknown)
+                    return false;
+
+                russian =
+                    language == SystemLanguage.Russian;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning(
+                    "Map UI game-language detection failed: " +
+                    ex.Message);
+            }
+
+            return false;
+        }
         private bool MapLocTryDetectNativeOptionsLanguage(
             out bool russian)
         {
