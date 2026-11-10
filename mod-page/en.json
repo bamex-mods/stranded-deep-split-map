@@ -1,4 +1,4 @@
-{
+﻿{
     "schemaVersion":  1,
     "locale":  "en",
     "subtitle":  "Exploration map and navigation for local split-screen.",
@@ -38,7 +38,7 @@
                 },
                 {
                     "question":  "Does the map reveal story locations in advance?",
-                    "answer":  "No. MISSION and CARRIER zones are excluded from normal automatic island discovery so they are not revealed like ordinary islands."
+                    "answer":  "Not in advance. MISSION and CARRIER zones stay hidden until the players physically discover them. After a real encounter, the story location is added to the shared map."
                 },
                 {
                     "question":  "How do I add a manual marker?",

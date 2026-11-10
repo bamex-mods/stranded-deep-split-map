@@ -11,7 +11,7 @@ using Rewired;
 
 namespace StrandedDeepSplitMap
 {
-    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.5")]
+    [BepInPlugin("local.strandeddeep.splitmap", "Stranded Deep Split Map", "0.13.6")]
     [BepInDependency("com.bamex.strandeddeep.modsettings", BepInDependency.DependencyFlags.SoftDependency)]
     public sealed partial class SplitMapPlugin : BaseUnityPlugin
     {
@@ -109,7 +109,8 @@ namespace StrandedDeepSplitMap
 
         private void Awake()
         {
-            CreateTextures();
+                        StoryInitialize();
+CreateTextures();
             LoadVisualAssets();
             InitializeWreckNotes();
             InitializeManualNotes();
@@ -119,12 +120,13 @@ namespace StrandedDeepSplitMap
             RegisterMapModSettings();
             InitializeWorldToolsReflection();
 
-            Logger.LogInfo("Stranded Deep Split Map v0.13.5 loaded.");
+            Logger.LogInfo("Stranded Deep Split Map v0.13.6 loaded.");
         }
 
         private void Update()
         {
-            if (Time.unscaledTime >= _nextRefreshTime)
+                        StoryUpdate();
+if (Time.unscaledTime >= _nextRefreshTime)
             {
                 RefreshRuntimeReferences();
                 _nextRefreshTime = Time.unscaledTime + 1.0f;
@@ -1742,6 +1744,7 @@ namespace StrandedDeepSplitMap
                     if (AreWreckMarkersEnabled())
                         DrawWreckMarkers(mapRect, bounds, view, viewIndex);
 
+                        DrawStoryMarkers(mapRect, bounds, view, viewIndex);
                     // v0.11f: manual/local notes are intentionally hidden on the
                     // archipelago overview. They appear only once the player has
                     // zoomed in far enough for island-level detail. Wrecks remain
@@ -4526,7 +4529,8 @@ namespace StrandedDeepSplitMap
 
         private void OnDestroy()
         {
-            RestoreReservedMapButtons(0);
+                        StoryShutdown();
+RestoreReservedMapButtons(0);
             RestoreReservedMapButtons(1);
 
             SaveZoomForView(0);

@@ -15,6 +15,7 @@ $Compiler = "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 $Sources = @(
     (Join-Path $PSScriptRoot "StrandedDeepSplitMap.cs"),
     (Join-Path $PSScriptRoot "MapLocalization.cs"),
+    (Join-Path $PSScriptRoot "StoryDiscovery.cs"),
     (Join-Path $PSScriptRoot "WreckNotes.cs"),
     (Join-Path $PSScriptRoot "ManualNotes.cs"),
     (Join-Path $PSScriptRoot "VisualDiscovery.cs"),
@@ -130,7 +131,7 @@ function Require-InstalledAsset {
     }
 }
 
-# v0.13.5 is code-only. Do NOT overwrite installed map art.
+# v0.13.6 is code-only. Do NOT overwrite installed map art.
 # Preserve the current high-resolution parchment and all existing icon PNGs.
 Require-InstalledAsset (Join-Path $PluginAssets "parchment.png")
 Require-InstalledAsset (Join-Path $PluginAssets "compass_rose.png")
@@ -152,10 +153,39 @@ if (Test-Path $LegacyDll) {
 }
 
 Write-Host ""
+$StoryAssetNames = @(
+    "story_lusca.png",
+    "story_abaia.png",
+    "story_megalodon.png",
+    "story_carrier.png",
+    "story_unknown.png"
+)
+
+$SourceStoryAssets = Join-Path $PSScriptRoot "assets\story"
+$PluginStoryAssets = Join-Path $PluginDir "assets\story"
+
+if (-not (Test-Path -LiteralPath $SourceStoryAssets)) {
+    throw "Story asset folder not found: $SourceStoryAssets"
+}
+
+New-Item -ItemType Directory -Force -Path $PluginStoryAssets | Out-Null
+
+foreach ($StoryAssetName in $StoryAssetNames) {
+    $StorySourceFile = Join-Path $SourceStoryAssets $StoryAssetName
+    $StoryTargetFile = Join-Path $PluginStoryAssets $StoryAssetName
+
+    if (-not (Test-Path -LiteralPath $StorySourceFile)) {
+        throw "Story asset missing: $StorySourceFile"
+    }
+
+    Copy-Item -LiteralPath $StorySourceFile -Destination $StoryTargetFile -Force
+}
+
+Write-Host "Story assets deployed: $($StoryAssetNames.Count)"
 Write-Host "Build OK:"
 Write-Host $Output
 Write-Host ""
-Write-Host "v0.13.5 field test:"
+Write-Host "v0.13.6 field test:"
 Write-Host "  1. M opens/closes P1 map; N remains P2 map for local split-screen."
 Write-Host "  2. Arrow keys pan; =/Keypad+ zoom in; -/Keypad- zoom out."
 Write-Host "  3. Home centers the owning player; Backspace resets to 1x + center."

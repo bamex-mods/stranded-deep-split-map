@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using BepInEx.Configuration;
 using Bamex.StrandedDeep.ModSettings;
@@ -85,7 +85,7 @@ namespace StrandedDeepSplitMap
                 "MapView",
                 "FogOfWarEnabled",
                 true,
-                "When disabled, reveal the whole ordinary archipelago visually without changing Discovery or Exploration data.");
+                "Compatibility key. True = normal discovery view; false = Reveal Entire Map. Display-only; does not modify Discovery or Exploration data.");
 
             NormalizeUserSettings();
         }
@@ -242,16 +242,16 @@ namespace StrandedDeepSplitMap
 
             ModSettingsClient.AddToggleLocalized(
                 ModSettingsModId,
-                "fogOfWar",
-                "Туман войны",
-                "Fog of War",
+                "revealEntireMap",
+                "Показать всю карту",
+                "Reveal Entire Map",
                 1000,
                 "Вкл.",
                 "On",
                 "Выкл.",
                 "Off",
-                delegate { return IsFogOfWarEnabled(); },
-                delegate(bool value) { _fogOfWarEnabledConfig.Value = value; });
+                delegate { return IsRevealEntireMapEnabled(); },
+                delegate(bool value) { _fogOfWarEnabledConfig.Value = !value; });
 
             ModSettingsClient.AddButtonLocalized(
                 ModSettingsModId,
@@ -340,6 +340,11 @@ namespace StrandedDeepSplitMap
         private bool IsFogOfWarEnabled()
         {
             return _fogOfWarEnabledConfig == null || _fogOfWarEnabledConfig.Value;
+        }
+
+        private bool IsRevealEntireMapEnabled()
+        {
+            return !IsFogOfWarEnabled();
         }
 
         private void CalibrateNorthFromSettings()
